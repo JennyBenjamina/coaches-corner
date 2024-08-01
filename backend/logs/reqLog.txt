@@ -42638,3 +42638,7 @@
 20240729	09:00:52	501f1617-c400-4bac-bae8-06e38afde31e	POST	http://localhost:3000	/api/addfile?month=1&year=2024&category=men&endDate=2024-07-31
 20240729	09:00:55	5bc5b5d1-40d3-49fe-b858-4119de013e2d	GET	http://localhost:3000	/api/images?month=1&year=2024&category=men
 20240729	09:01:15	dbddfb00-44aa-405e-bfd0-c61e8c8af55e	GET	http://localhost:3000	/logout
+20240801	08:01:48	de4073ca-f32d-4200-aaaf-1135a707aae1	GET	http://localhost:3000	/refresh
+20240801	08:01:48	89839322-097e-422d-865e-86511139cf47	GET	http://localhost:3000	/refresh
+20240801	08:01:50	383f4d5c-552f-4677-afb5-84e7b92ac85c	GET	http://localhost:3000	/logout
+20240801	08:01:57	27c46265-de56-4027-9ce9-72494c818ee4	POST	http://localhost:3000	/auth
