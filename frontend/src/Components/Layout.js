@@ -1,10 +1,14 @@
 import { Outlet } from "react-router-dom";
+import VerticalDashboard from "./VerticalDashboard";
 
 const Layout = () => {
   return (
-    <main className="App">
-      <Outlet />
-    </main>
+    <div className="app-layout">
+      <VerticalDashboard />
+      <main className="App">
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

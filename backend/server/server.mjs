@@ -52,7 +52,7 @@ app.use("/register", registerRouter);
 app.use("/refresh", refreshTokenRouter);
 app.use("/logout", logoutRouter);
 
-app.use(verifyJWT);
+// app.use(verifyJWT);
 app.use("/users", usersRouter);
 app.use("/students", studentRouter);
 

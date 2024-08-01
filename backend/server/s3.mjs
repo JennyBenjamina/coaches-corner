@@ -45,10 +45,10 @@ export const uploadToS3 = async ({ file, userId, key }) => {
   }
 };
 
-export const deleteFroms3 = async (imageName) => {
+export const deleteFroms3 = async (videoName) => {
   const command = new DeleteObjectCommand({
     Bucket: BUCKET,
-    Key: imageName,
+    Key: videoName,
   });
 
   try {

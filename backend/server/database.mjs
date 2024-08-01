@@ -1,5 +1,5 @@
 import multer, { memoryStorage } from "multer";
-import Photo from "../models/photo.mjs";
+import Video from "../models/video.mjs";
 import { v4 as uuid } from "uuid";
 import dotenv from "dotenv";
 dotenv.config();
@@ -12,15 +12,13 @@ const upload = multer({ storageMemory }); // using storageMemory allows for the 
 async function addMetadata(req, res, next) {
   if (req.file) {
     const key = `${req.query.category}/${uuid()}`;
-    req.photoKey = key;
-    const photoFile = new Photo({
+    req.videoKey = key;
+    const videoFile = new Video({
       category: req.query.category,
-      month: req.query.month,
-      year: req.query.year,
-      endDate: new Date(req.query.endDate),
-      imageUrl: key,
+      videoUrl: key,
+      username: req.query.username,
     });
-    await photoFile.save();
+    await videoFile.save();
   }
   next();
 }

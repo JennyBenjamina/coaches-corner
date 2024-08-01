@@ -177,3 +177,113 @@ footer img {
     text-align: center;
   }
 }
+
+/* Vertical Dashboard */
+:root {
+  --dark-green: darkgreen;
+  --brown: brown;
+
+  --sidebar-width: 100px; /* Smaller width for collapsed state */
+  --sidebar-width-expanded: 250px;
+  --icon-active-color: var(--dark-green);
+  --icon-inactive-color: var(--brown);
+  --text-active-color: var(--dark-green);
+  --text-inactive-color: var(--brown);
+}
+
+.app-layout {
+  display: flex;
+}
+
+.vertical-dashboard {
+  width: var(--sidebar-width);
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+
+.vertical-dashboard:hover {
+  width: var(--sidebar-width-expanded);
+}
+
+.vertical-dashboard .nav-link {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.vertical-dashboard .nav-link .icon,
+.vertical-dashboard .nav-link .text {
+  transition: color 0.3s ease;
+}
+
+.vertical-dashboard .nav-link .icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  color: var(--icon-inactive-color);
+}
+
+.vertical-dashboard .nav-link .text {
+  color: var(--text-inactive-color);
+}
+
+.vertical-dashboard .nav-link.active .icon {
+  color: var(--icon-active-color);
+}
+
+.vertical-dashboard .nav-link.active .text {
+  color: var(--text-active-color);
+}
+
+.vertical-dashboard .nav-link .text {
+  display: none;
+}
+
+.vertical-dashboard:hover .nav-link .text {
+  display: inline;
+}
+
+.vertical-dashboard:hover .nav-link .icon {
+  margin-right: 10px;
+}
+
+.content {
+  margin-left: var(--sidebar-width);
+  padding: 20px;
+  width: calc(100% - var(--sidebar-width));
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.vertical-dashboard:hover ~ .content {
+  margin-left: var(--sidebar-width-expanded);
+  width: calc(100% - var(--sidebar-width-expanded));
+}
+
+/* custom buttons */
+
+.btn-custom {
+  background-color: var(--dark-green);
+  border-color: var(--brown);
+  color: white;
+}
+
+.btn-custom:hover {
+  background-color: var(--brown);
+  border-color: var(--dark-green);
+  color: white;
+}
+
+.form-control-custom {
+  border-color: var(--brown);
+}
+
+.form-control-custom:focus {
+  border-color: var(--dark-green);
+  box-shadow: 0 0 0 0.2rem rgba(0, 100, 0, 0.25);
+}

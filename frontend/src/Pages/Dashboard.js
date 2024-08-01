@@ -1,10 +1,15 @@
-import Users from "../Components/Users";
+import Videos from "../Components/Videos";
+import InputFiles from "../Components/InputFiles";
+import { Container } from "react-bootstrap";
+
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <Users />
-    </div>
+    <Container>
+      <h1>Student's Dashboard</h1>
+      <InputFiles />
+      <br />
+      <Videos />
+    </Container>
   );
 };
 

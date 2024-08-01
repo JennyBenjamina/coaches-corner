@@ -7,11 +7,11 @@ const getAllStudents = async (req, res) => {
 };
 
 const createNewStudent = async (req, res) => {
-  if (!req?.body?.username || !req?.body?.password) {
-    return res
-      .status(400)
-      .json({ message: "Username and Password are required" });
-  }
+  // if (!req?.body?.username || !req?.body?.password) {
+  //   return res
+  //     .status(400)
+  //     .json({ message: "Username and Password are required" });
+  // }
 
   try {
     const result = await Student.create({

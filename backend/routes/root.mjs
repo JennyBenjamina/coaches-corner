@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import Photo from "../models/photo.mjs";
+import Video from "../models/video.mjs";
 import { upload, addMetadata } from "../server/database.mjs";
 import { uploadToS3, deleteFroms3 } from "../server/s3.mjs";
 import cron from "node-cron";
@@ -23,29 +23,30 @@ router.get("/", (req, res) => {
   res.send(`Hello, ${req.subdomain}`);
 });
 
-router.post("/addFile", upload.single("img"), addMetadata, async (req, res) => {
-  const { error, imgName } = uploadToS3({
-    file: req.file,
-    userId: "123",
-    key: req.photoKey,
-  });
+router.post(
+  "/addFile",
+  upload.single("file"),
+  addMetadata,
+  async (req, res) => {
+    const { error, imgName } = uploadToS3({
+      file: req.file,
+      userId: req.query.username,
+      key: req.videoKey,
+    });
 
-  res.send("success");
-});
+    res.send("success");
+  }
+);
 
-router.get("/images", async (req, res) => {
-  const category = req.query.category;
-  const month = req.query.month;
-  const year = req.query.year;
+router.get("/videos", async (req, res) => {
+  const username = req.query.username;
 
   try {
-    let files = await Photo.find({
-      category: category,
-      month: month,
-      year: year,
+    let files = await Video.find({
+      username: username,
     });
-    const fileNames = files.map((file) => file.imageUrl);
-
+    const fileNames = files.map((file) => file.videoUrl);
+    console.log("fileNames", fileNames);
     if (fileNames.length > 0) {
       res.send(fileNames);
     } else {
@@ -64,13 +65,13 @@ router.get("/imageNames", async (req, res) => {
   try {
     let files = [];
     if (req.query.category === "all") {
-      files = await Photo.find({
+      files = await Video.find({
         category: { $ne: "archive" },
         month: month,
         year: year,
       });
     } else {
-      files = await Photo.find({
+      files = await Video.find({
         category: category,
         month: month,
         year: year,
@@ -90,7 +91,7 @@ router.get("/imageNames", async (req, res) => {
 
 router.delete("/deleteFile", async (req, res) => {
   try {
-    let updatedFile = await Photo.findOneAndUpdate(
+    let updatedFile = await Video.findOneAndUpdate(
       { imageUrl: req.body.filename }, // Assuming req.body.imageUrl contains the imageUrl
       { $set: { category: "archive" } }, // Update the category to "archive"
       { new: true } // Return the updated document
@@ -115,7 +116,7 @@ async function deleteExpiredFiles() {
   const currentDate = new Date();
 
   try {
-    let updatedFile = await Photo.updateMany(
+    let updatedFile = await Video.updateMany(
       { endDate: { $lt: currentDate } },
       { $set: { category: "archive" } } // Update the category to "archive"
     );

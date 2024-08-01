@@ -6,6 +6,7 @@ import Category from "../Components/Category";
 import { Button, Toast } from "react-bootstrap";
 import axiosInstance from "../api/axios";
 import EndDate from "../Components/EndDate";
+
 // work onthis later
 function Home() {
   // Define state variables for month, year, and file in Home.js
@@ -18,7 +19,6 @@ function Home() {
   const [showToast, setShowToast] = useState(false);
 
   const handleDateChange = (date) => {
-    console.log("handl date change: ", date);
     setMonth(date.getMonth() + 1); // getMonth() returns a zero-based month, so add 1
     setYear(date.getFullYear());
   };
@@ -68,48 +68,46 @@ function Home() {
   };
 
   return (
-    <div className="Home container mt-5">
-      <div className="Home-left-box">
-        <div className="Home-left-top text-center">
-          <h2 className="Home-heading">
-            Upload Flyers based on Month and Year
-          </h2>
-          <p className="Home-paragraph">
-            This app takes your flyer and puts it in a photo carousel for the
-            members to view.
-          </p>
-        </div>
+    <>
+      <div className="Home container mt-5">
+        <div className="Home-left-box">
+          <div className="Home-left-top text-center">
+            <h2 className="Home-heading">
+              Swing Videos <br /> for Coach
+            </h2>
+          </div>
 
-        <div className="Home files-upload">
-          <Category onCategoryChange={handleCategoryChange} />
-          <DateComponent onDateChange={handleDateChange} />
-          <EndDate onEndDateChange={handleEndDateChange} />
-          <InputFiles
-            key={load}
-            onFileChange={handleFileChange}
-            load={load}
-            setLoad={setLoad}
-          />
+          <div className="Home files-upload">
+            <Category onCategoryChange={handleCategoryChange} />
+            <DateComponent onDateChange={handleDateChange} />
+            <EndDate onEndDateChange={handleEndDateChange} />
+            <InputFiles
+              key={load}
+              onFileChange={handleFileChange}
+              load={load}
+              setLoad={setLoad}
+            />
 
-          <Toast
-            onClose={() => setShowToast(false)}
-            show={showToast}
-            delay={3000}
-            autohide
-            bg="warning"
-            style={{ marginBottom: "1rem" }}
-          >
-            <Toast.Header>
-              <strong className="mr-auto">Image Upload</strong>
-            </Toast.Header>
-            <Toast.Body>Successfully Uploaded</Toast.Body>
-          </Toast>
-          <Button variant="success" type="button" onClick={handleFileUpload}>
-            Upload File
-          </Button>
+            <Toast
+              onClose={() => setShowToast(false)}
+              show={showToast}
+              delay={3000}
+              autohide
+              bg="warning"
+              style={{ marginBottom: "1rem" }}
+            >
+              <Toast.Header>
+                <strong className="mr-auto">Image Upload</strong>
+              </Toast.Header>
+              <Toast.Body>Successfully Uploaded</Toast.Body>
+            </Toast>
+            <Button variant="success" type="button" onClick={handleFileUpload}>
+              Upload File
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

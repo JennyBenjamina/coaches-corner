@@ -10,10 +10,16 @@ import {
 import ROLES_LIST from "../../config/rolesList.mjs";
 import verifyRoles from "../../middleware/verifyRoles.mjs";
 
+// router
+//   .route("/")
+//   .get(getAllStudents)
+//   .post(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), createNewStudent)
+//   .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), updateStudent)
+//   .delete(verifyRoles(ROLES_LIST.Admin), deleteStudent);
 router
   .route("/")
   .get(getAllStudents)
-  .post(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), createNewStudent)
+  .post(createNewStudent)
   .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), updateStudent)
   .delete(verifyRoles(ROLES_LIST.Admin), deleteStudent);
 
