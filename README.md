@@ -1,1 +1,2 @@
-# This app presents flyers on a tv screen and will revolve infinitely.
+# Coaches Corner
+## This app allows students and coaches to communicate efficiently on what they're working on
