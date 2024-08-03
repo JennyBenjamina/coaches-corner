@@ -10,8 +10,8 @@ const upload = multer({ storageMemory }); // using storageMemory allows for the 
 
 // Middleware to add metadata to the file object
 async function addMetadata(req, res, next) {
-  if (req.file) {
-    const key = `${req.query.category}/${uuid()}`;
+  if (req.file && req.query.username && req.query.category) {
+    const key = `${req.query.username}/${req.query.category}/${uuid()}`;
     req.videoKey = key;
     const videoFile = new Video({
       category: req.query.category,
@@ -19,6 +19,9 @@ async function addMetadata(req, res, next) {
       username: req.query.username,
     });
     await videoFile.save();
+  } else if (req.file && req.query.imgId) {
+    const key = `${req.query.imgId}/profileImg/${uuid()}`;
+    req.imgKey = key;
   }
   next();
 }

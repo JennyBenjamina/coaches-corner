@@ -8,8 +8,6 @@ export const AuthProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("persist")) || false
   );
 
-  // const isAuthorized = (role) => auth.roles?.includes(role) || false;
-
   const isAuthorized = (role) => {
     if (Array.isArray(role)) {
       return role.some((r) => auth.roles?.includes(r)) || false;

@@ -44,7 +44,32 @@ const SignIn = () => {
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       const isAuthenticated = response?.data?.isAuthenticated;
-      setAuth({ user, pwd, roles, accessToken, isAuthenticated });
+      const id = response?.data?.id;
+      const email = response?.data?.email;
+      const handicap = response?.data?.handicap;
+      const homeCourse = response?.data?.homeCourse;
+      const startDate = response?.data?.startDate;
+      const takenLessons = response?.data?.takenLessons;
+      const username = response?.data?.username;
+      const whatToImprove = response?.data?.whatToImprove;
+      const yearsPlayed = response?.data?.yearsPlayed;
+      console.log("response", response?.data);
+      setAuth({
+        user,
+        pwd,
+        roles,
+        accessToken,
+        isAuthenticated,
+        id,
+        email,
+        handicap,
+        homeCourse,
+        startDate,
+        takenLessons,
+        username,
+        whatToImprove,
+        yearsPlayed,
+      });
       setUser("");
       setPwd("");
       navigate(from, { replace: true });

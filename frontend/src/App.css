@@ -189,6 +189,9 @@ footer img {
   --icon-inactive-color: var(--brown);
   --text-active-color: var(--dark-green);
   --text-inactive-color: var(--brown);
+  --button-bg-color: var(--dark-green);
+  --button-text-color: white;
+  --button-hover-bg-color: var(--brown);
 }
 
 .app-layout {
@@ -268,15 +271,13 @@ footer img {
 /* custom buttons */
 
 .btn-custom {
-  background-color: var(--dark-green);
-  border-color: var(--brown);
-  color: white;
+  background-color: var(--button-bg-color) !important;
+  color: var(--button-text-color) !important;
 }
 
 .btn-custom:hover {
-  background-color: var(--brown);
-  border-color: var(--dark-green);
-  color: white;
+  background-color: var(--button-hover-bg-color) !important;
+  color: var(--button-text-color) !important;
 }
 
 .form-control-custom {

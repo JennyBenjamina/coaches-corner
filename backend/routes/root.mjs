@@ -4,7 +4,6 @@ import { fileURLToPath } from "url";
 import Video from "../models/video.mjs";
 import { upload, addMetadata } from "../server/database.mjs";
 import { uploadToS3, deleteFroms3 } from "../server/s3.mjs";
-import cron from "node-cron";
 
 const router = express.Router();
 // Convert the file URL to a path
@@ -28,11 +27,20 @@ router.post(
   upload.single("file"),
   addMetadata,
   async (req, res) => {
-    const { error, imgName } = uploadToS3({
-      file: req.file,
-      userId: req.query.username,
-      key: req.videoKey,
-    });
+    if (req.query.username && req.query.category) {
+      const { error, imgName } = uploadToS3({
+        file: req.file,
+        userId: req.query.username,
+        key: req.videoKey,
+      });
+    } else if (req.query.imgId) {
+      console.log("going through req.query.imgd", req.file);
+      const { error, imgName } = uploadToS3({
+        file: req.file,
+        userId: req.query.imgId,
+        key: req.imgKey,
+      });
+    }
 
     res.send("success");
   }
@@ -46,11 +54,11 @@ router.get("/videos", async (req, res) => {
       username: username,
     });
     const fileNames = files.map((file) => file.videoUrl);
-    console.log("fileNames", fileNames);
+    console.log("fileNames", files);
     if (fileNames.length > 0) {
       res.send(fileNames);
     } else {
-      res.send("No files found");
+      res.send(["No files found"]);
     }
   } catch (err) {
     res.send(err);
@@ -110,27 +118,5 @@ router.delete("/deleteFile", async (req, res) => {
       .send({ message: "An error occurred while deleting the file." });
   }
 });
-
-// Function to delete files based on endDate
-async function deleteExpiredFiles() {
-  const currentDate = new Date();
-
-  try {
-    let updatedFile = await Video.updateMany(
-      { endDate: { $lt: currentDate } },
-      { $set: { category: "archive" } } // Update the category to "archive"
-    );
-
-    // deleteFroms3(updatedFile.imgName);
-    console.log(updatedFile);
-  } catch (err) {
-    console.log("error on server");
-  }
-
-  console.log("Expired files deleted, remaining files:");
-}
-
-// Schedule the cron job to run every minute
-cron.schedule("30 1 * * *", deleteExpiredFiles);
 
 export default router;

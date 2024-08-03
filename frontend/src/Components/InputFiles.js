@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Toast } from "react-bootstrap";
 import { Button, Modal, Spinner } from "react-bootstrap";
 import axiosInstance from "../api/axios";
+import useAuth from "../hooks/useAuth";
 
 const categories = [
   "face-on",
@@ -20,6 +21,8 @@ const categories = [
 ];
 
 function InputFiles() {
+  const { auth } = useAuth();
+
   const [file, setFile] = useState(null);
   const [load, setLoad] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -50,7 +53,7 @@ function InputFiles() {
     formData.append("description", category);
 
     axiosInstance
-      .post(`/api/addfile?username=jenny&category=${category}`, formData) // this was formData
+      .post(`/api/addfile?username=${auth.id}&category=${category}`, formData) // this was formData
       .then((response) => {
         // handle the response
         setShowToast(true);
@@ -86,7 +89,12 @@ function InputFiles() {
           </Form.Select>
         </Form.Group>
       </Form>
-      <Button variant="success" type="button" onClick={handleSubmit}>
+      <Button
+        variant="custom"
+        className="btn-custom"
+        type="button"
+        onClick={handleSubmit}
+      >
         Upload File
       </Button>
       {load ? (

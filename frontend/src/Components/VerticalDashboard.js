@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav } from "react-bootstrap";
-import { FaUser, FaTachometerAlt, FaCog } from "react-icons/fa";
+import { FaUser, FaTachometerAlt, FaCog, FaSignOutAlt } from "react-icons/fa";
+import useLogout from "../hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 
 const VerticalDashboard = () => {
+  const logout = useLogout();
+  const navigate = useNavigate();
+
+  const signOut = async () => {
+    await logout();
+    navigate("/signin");
+  };
   const [activeLink, setActiveLink] = useState(null);
 
   const handleSetActive = (link) => {
@@ -38,6 +47,16 @@ const VerticalDashboard = () => {
           >
             <FaCog className="icon" />
             <span className="text">Settings</span>
+          </Nav.Link>
+        </LinkContainer>
+
+        <LinkContainer to="/signin" style={{ cursor: "pointer" }}>
+          <Nav.Link
+            className={activeLink === "signout" ? "active" : ""}
+            onClick={signOut}
+          >
+            <FaSignOutAlt className="icon" />
+            <span className="text">Sign Out</span>
           </Nav.Link>
         </LinkContainer>
       </Nav>

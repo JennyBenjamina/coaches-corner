@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useRefreshToken from "../hooks/useRefreshToken";
+import axiosInstance from "../api/axios";
 
 const StudentRegistrationForm = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const refresh = useRefreshToken();
+  const [image, setImage] = useState("https://via.placeholder.com/100");
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -13,6 +21,19 @@ const StudentRegistrationForm = () => {
     takenLessons: false,
     whatToImprove: "",
   });
+
+  useEffect(() => {
+    refresh();
+    axiosPrivate
+      .get(`/students/${auth.id}`)
+      .then((response) => {
+        setFormData(response.data);
+        console.log("formData", formData);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,9 +49,54 @@ const StudentRegistrationForm = () => {
     console.log(formData);
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const data = new FormData();
+      data.append("file", file);
+      setImage(URL.createObjectURL(file));
+      axiosInstance
+        .post(`/api/addfile?imgId=${auth.id}`, data)
+        .then((response) => {
+          console.log(response);
+        });
+    }
+  };
+
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formImage">
+          <Form.Label>Profile Image</Form.Label>
+          <div>
+            {image ? (
+              <img
+                src={image}
+                alt="Profile"
+                onClick={() => document.getElementById("imageUpload").click()}
+                style={{
+                  cursor: "pointer",
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%",
+                }}
+              />
+            ) : (
+              <Button
+                onClick={() => document.getElementById("imageUpload").click()}
+              >
+                Upload Image
+              </Button>
+            )}
+            <Form.Control
+              type="file"
+              id="imageUpload"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+          </div>
+        </Form.Group>
+
         <Form.Group controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control

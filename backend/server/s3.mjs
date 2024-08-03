@@ -24,11 +24,6 @@ const s3 = new S3Client({
 });
 
 export const uploadToS3 = async ({ file, userId, key }) => {
-  // if i want to resize before uploading to s3
-  // const buffer = await sharp(file.buffer)
-  // .resize({ height: 200, width: 200, fit: "contain" })
-  // .toBuffer();
-
   const command = new PutObjectCommand({
     Bucket: BUCKET,
     Key: key,

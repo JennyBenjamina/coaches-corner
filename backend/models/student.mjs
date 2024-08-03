@@ -35,6 +35,14 @@ const studentSchema = new mongoose.Schema({
   whatToImprove: {
     type: String,
   },
+  roles: {
+    User: {
+      type: Number,
+      default: 2001,
+    },
+    Editor: Number,
+    Admin: Number,
+  },
 });
 
 const Student = mongoose.model("Student", studentSchema);

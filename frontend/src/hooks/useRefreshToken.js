@@ -9,12 +9,27 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
     setAuth((prev) => {
-      console.log(JSON.stringify(prev));
-      console.log(response.data.accessToken);
+      console.log("from useRefreshTOken", JSON.stringify(prev));
+      console.log("from useRefreshTOken", response.data.accessToken);
+      // return {
+      //   ...prev,
+      //   roles: response.data.roles,
+      //   accessToken: response.data.accessToken,
+      // };
       return {
         ...prev,
         roles: response.data.roles,
         accessToken: response.data.accessToken,
+        isAuthenticated: true,
+        startDate: response.data.startDate,
+        handicap: response.data.handicap,
+        email: response.data.email,
+        username: response.data.username,
+        id: response.data.id,
+        homeCourse: response.data.homeCourse,
+        yearsPlayed: response.data.yearsPlayed,
+        takenLessons: response.data.takenLessons,
+        whatToImprove: response.data.whatToImprove,
       };
     });
     return response.data.accessToken;

@@ -49,10 +49,11 @@ app.use(cookieParser());
 app.use("/api", rootRouter);
 app.use("/auth", authRouter);
 app.use("/register", registerRouter);
+
 app.use("/refresh", refreshTokenRouter);
 app.use("/logout", logoutRouter);
 
-// app.use(verifyJWT);
+app.use(verifyJWT);
 app.use("/users", usersRouter);
 app.use("/students", studentRouter);
 

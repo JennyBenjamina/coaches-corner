@@ -1,5 +1,6 @@
-import User from "../models/user.mjs";
+// import User from "../models/user.mjs";
 import bcrypt from "bcrypt";
+import Student from "../models/student.mjs";
 
 const handleNewUser = async (req, res) => {
   const { user, pwd } = req.body;
@@ -9,15 +10,23 @@ const handleNewUser = async (req, res) => {
       .json({ message: "Username and password are required." });
 
   // check for duplicate usernames in the db
-  const duplicate = await User.findOne({ username: user }).exec();
+  const duplicate = await Student.findOne({ username: user }).exec();
   if (duplicate) return res.sendStatus(409); //Conflict
   try {
     //hash the password
     const hashedPwd = await bcrypt.hash(pwd, 10);
 
-    const newUser = new User({
+    const newUser = new Student({
       username: user,
       password: hashedPwd,
+      email: req.body.email,
+      handicap: req.body.handicap,
+      yearsPlayed: req.body.yearsPlayed,
+      homeCourse: req.body.homeCourse,
+      takenLessons: req.body.takenLessons,
+      whatToImprove: req.body.whatToImprove,
+      startDate: req.body.startDate,
+      roles: req.body.roles,
     });
 
     await newUser.save();

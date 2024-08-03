@@ -1,4 +1,5 @@
-import User from "../models/user.mjs";
+// import User from "../models/user.mjs";
+import Student from "../models/student.mjs";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -11,9 +12,7 @@ const handleLogin = async (req, res) => {
       .status(400)
       .json({ message: "Username and password are required." });
 
-  // res.status(200).send("welcome");
-
-  const foundUser = await User.findOne({ username: user }).exec();
+  const foundUser = await Student.findOne({ username: user }).exec();
   if (!foundUser) return res.sendStatus(401); //Unauthorized
 
   // evaluate password
@@ -31,7 +30,8 @@ const handleLogin = async (req, res) => {
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "10s" }
+        // { expiresIn: "10s" }
+        { expiresIn: "10d" }
       );
 
       const refreshToken = jwt.sign(
@@ -43,8 +43,6 @@ const handleLogin = async (req, res) => {
       foundUser.refreshToken = refreshToken;
       const result = await foundUser.save();
       console.log("result", result);
-      // console.log(result);
-      // console.log(roles);
 
       // Creates Secure Cookie with refresh token
       res.cookie("jwt", refreshToken, {
@@ -55,7 +53,20 @@ const handleLogin = async (req, res) => {
       });
       console.log("refresh token", refreshToken);
       // Send authorization roles and access token to user
-      res.json({ roles, accessToken, isAuthenticated: true });
+      res.json({
+        roles,
+        accessToken,
+        isAuthenticated: true,
+        // startDate: foundUser.startDate,
+        // handicap: foundUser.handicap,
+        // email: foundUser.email,
+        // username: foundUser.username,
+        id: foundUser._id,
+        // homeCourse: foundUser.homeCourse,
+        // yearsPlayed: foundUser.yearsPlayed,
+        // takenLessons: foundUser.takenLessons,
+        // whatToImprove: foundUser.whatToImprove,
+      });
     } catch (err) {
       return res.sendStatus(504);
     }

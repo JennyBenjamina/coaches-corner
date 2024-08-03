@@ -40,6 +40,14 @@ const Register = () => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const [email, setEmail] = useState("");
+  const [handicap, setHandicap] = useState("");
+  const [homeCourse, setHomeCourse] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [takenLessons, setTakenLessons] = useState(false);
+  const [whatToImprove, setWhatToImprove] = useState("");
+  const [yearsPlayed, setYearsPlayed] = useState("");
+
   const tooltipMessages = {
     password:
       "8 to 24 characters. Must include uppercase and lowercase letters, a number, and a special character. Allowed special characters: ! @ # $ %",
@@ -94,6 +102,13 @@ const Register = () => {
     const payload = {
       user: user,
       pwd: pwd,
+      email: email,
+      handicap: handicap,
+      homeCourse: homeCourse,
+      startDate: startDate,
+      takenLessons: takenLessons,
+      whatToImprove: whatToImprove,
+      yearsPlayed: yearsPlayed,
     };
     try {
       const response = await axiosInstance.post(
@@ -285,6 +300,75 @@ const Register = () => {
                       )}
                     </>
                   )}
+                </Form.Group>
+
+                <Form.Group controlId="email">
+                  <Form.Label>Email:</Form.Label>
+                  <Form.Control
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="handicap">
+                  <Form.Label>Handicap:</Form.Label>
+                  <Form.Control
+                    type="number"
+                    onChange={(e) => setHandicap(e.target.value)}
+                    value={handicap}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="homeCourse">
+                  <Form.Label>Home Course:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => setHomeCourse(e.target.value)}
+                    value={homeCourse}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="startDate">
+                  <Form.Label>Start Date:</Form.Label>
+                  <Form.Control
+                    type="date"
+                    onChange={(e) => setStartDate(e.target.value)}
+                    value={startDate}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="takenLessons">
+                  <Form.Label>Taken Lessons:</Form.Label>
+                  <Form.Check
+                    type="checkbox"
+                    onChange={(e) => setTakenLessons(e.target.checked)}
+                    checked={takenLessons}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="whatToImprove">
+                  <Form.Label>What to Improve:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => setWhatToImprove(e.target.value)}
+                    value={whatToImprove}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="yearsPlayed">
+                  <Form.Label>Years Played:</Form.Label>
+                  <Form.Control
+                    type="number"
+                    onChange={(e) => setYearsPlayed(e.target.value)}
+                    value={yearsPlayed}
+                    required
+                  />
                 </Form.Group>
 
                 <Button

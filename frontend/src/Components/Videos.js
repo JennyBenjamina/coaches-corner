@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Videos = () => {
+  const { auth } = useAuth();
   const [videos, setVideos] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
@@ -14,11 +16,16 @@ const Videos = () => {
 
     const getVideos = async () => {
       try {
-        const response = await axiosPrivate.get("/api/videos?username=jenny", {
-          signal: controller.signal,
-        });
+        const response = await axiosPrivate.get(
+          `/api/videos?username=${auth.id}`,
+          {
+            signal: controller.signal,
+          }
+        );
 
         if (isMounted) {
+          // Sometimes this is sent as an array of arrays, so we flatten it
+          // Sometimes
           const respVideos =
             Array.isArray(response.data) && Array.isArray(response.data[0])
               ? response.data.flat()
@@ -41,10 +48,10 @@ const Videos = () => {
   return (
     <article>
       <h2>Video List</h2>
-      {videos?.length > 0 ? (
+      {videos?.length > 0 && videos[0] != "No files found" ? (
         <ul>
           {videos.map((video, i) => (
-            <li key={i}>
+            <li key={i} style={{ listStyle: "none" }}>
               <video
                 src={`https://d14dew3747d7ve.cloudfront.net/${video}`}
                 controls
