@@ -40,7 +40,6 @@ const SignIn = () => {
         }
       );
       console.log("data", JSON.stringify(response?.data));
-      // console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       const isAuthenticated = response?.data?.isAuthenticated;
@@ -109,7 +108,8 @@ const SignIn = () => {
             {errMsg}
           </Alert>
         )}
-        <h1>Sign In</h1>
+        <h1 className="heading">Sign In</h1>
+        <hr />
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="username">
             <Form.Label>Username:</Form.Label>
@@ -132,7 +132,7 @@ const SignIn = () => {
               required
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="custom" className="btn-custom my-3" type="submit">
             Sign In
           </Button>
           <div className="persistCheck">

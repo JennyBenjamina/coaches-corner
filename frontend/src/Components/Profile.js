@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 const Profile = () => {
   return (
     <Container>
-      <h2 className="student-profile mb-5 mt-5">Student Profile</h2>
+      <h2 className="heading mb-5 mt-5">Student Profile</h2>
       <hr />
       <StudentRegistrationForm />
     </Container>

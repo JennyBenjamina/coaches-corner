@@ -43546,3 +43546,15 @@
 20240803	07:29:36	eb33d33f-7bec-4987-bac6-17e2292a1ffe	GET	http://localhost:3000	/students/66ad08c815c1678d022992d5
 20240803	07:29:36	cb647d82-49f6-4a40-8ea5-6806a6e44767	GET	http://localhost:3000	/students/66ad08c815c1678d022992d5
 20240803	07:29:37	ccf9b6fc-7f32-4c75-b57b-b5e3c7c4ec16	GET	http://localhost:3000	/refresh
+20240803	07:30:30	f0493c6b-a005-4d95-b7e1-72447bd02224	GET	http://localhost:3000	/api/videos?username=66ad08c815c1678d022992d5
+20240803	07:30:30	99ea4623-ccc3-47fd-af2b-5468688e5a81	GET	http://localhost:3000	/api/videos?username=66ad08c815c1678d022992d5
+20240803	07:30:56	03127ff4-252c-4fac-958e-d8f1aa02c78b	GET	http://localhost:3000	/logout
+20240803	07:38:13	992744f8-a4a2-439f-84f8-b976e2de2e7e	GET	http://localhost:3000	/refresh
+20240803	07:38:13	a1a4fcf5-5999-4614-acff-90eebc40a13d	GET	http://localhost:3000	/refresh
+20240803	07:39:42	2755eb47-6751-4f31-82b8-1c0d569effec	GET	http://localhost:3000	/refresh
+20240803	07:39:42	0156607e-549a-4f75-9c41-d23cc2be859e	GET	http://localhost:3000	/refresh
+20240803	07:39:43	47a23c4a-95d9-4dd9-9c17-8d00a7945eef	GET	http://localhost:3000	/refresh
+20240803	07:39:43	d4bab99d-a15b-4e58-8358-9213a34e7262	GET	http://localhost:3000	/refresh
+20240803	07:39:44	561747a8-2427-4ce6-9cd7-c1c4725176d4	GET	http://localhost:3000	/logout
+20240803	07:39:45	4c4b5db0-6f45-450e-ace7-01594e8f3807	GET	http://localhost:3000	/refresh
+20240803	07:39:45	ebaf9b9d-ec5c-4c9b-a5dc-5766982a0b48	GET	http://localhost:3000	/refresh

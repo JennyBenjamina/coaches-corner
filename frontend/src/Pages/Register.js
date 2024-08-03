@@ -44,7 +44,7 @@ const Register = () => {
   const [handicap, setHandicap] = useState("");
   const [homeCourse, setHomeCourse] = useState("");
   const [startDate, setStartDate] = useState("");
-  const [takenLessons, setTakenLessons] = useState(false);
+  const [takenLessons, setTakenLessons] = useState("");
   const [whatToImprove, setWhatToImprove] = useState("");
   const [yearsPlayed, setYearsPlayed] = useState("");
 
@@ -169,7 +169,8 @@ const Register = () => {
               >
                 {errMsg}
               </p>
-              <h1>Register</h1>
+              <h1 className="heading">Register</h1>
+              <hr />
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="username">
                   <Form.Label>Username:</Form.Label>
@@ -342,12 +343,31 @@ const Register = () => {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="takenLessons">
+                {/* <Form.Group controlId="takenLessons">
                   <Form.Label>Taken Lessons:</Form.Label>
                   <Form.Check
                     type="checkbox"
                     onChange={(e) => setTakenLessons(e.target.checked)}
                     checked={takenLessons}
+                  />
+                </Form.Group> */}
+                <Form.Group controlId="formTakenLessons">
+                  <Form.Label>Have you taken lessons?</Form.Label>
+                  <Form.Check
+                    type="radio"
+                    label="Yes"
+                    name="takenLessons"
+                    value="yes"
+                    checked={takenLessons === "yes"}
+                    onChange={(e) => setTakenLessons(e.target.value)}
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="No"
+                    name="takenLessons"
+                    value="no"
+                    checked={takenLessons === "no"}
+                    onChange={(e) => setTakenLessons(e.target.value)}
                   />
                 </Form.Group>
 
@@ -372,9 +392,9 @@ const Register = () => {
                 </Form.Group>
 
                 <Button
-                  variant="primary"
+                  variant="custom"
                   type="submit"
-                  className="mt-3"
+                  className="mt-3 btn-custom"
                   disabled={!validName || !validPwd || !validMatch}
                 >
                   Sign Up
