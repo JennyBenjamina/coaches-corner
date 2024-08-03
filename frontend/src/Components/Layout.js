@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <div className="app-layout">
       <VerticalDashboard />
-      <main className="App">
+      <main className="App" style={{ width: "100%" }}>
         <Outlet />
       </main>
     </div>

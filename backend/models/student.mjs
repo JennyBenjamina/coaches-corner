@@ -30,7 +30,9 @@ const studentSchema = new mongoose.Schema({
     type: String,
   },
   takenLessons: {
-    type: Boolean,
+    type: String,
+    enum: ["yes", "no"],
+    default: "no",
   },
   whatToImprove: {
     type: String,
