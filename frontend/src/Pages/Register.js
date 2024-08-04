@@ -351,11 +351,12 @@ const Register = () => {
                     checked={takenLessons}
                   />
                 </Form.Group> */}
-                <Form.Group controlId="formTakenLessons">
+                <Form.Group>
                   <Form.Label>Have you taken lessons?</Form.Label>
                   <Form.Check
                     type="radio"
                     label="Yes"
+                    id="takenLessonsYes"
                     name="takenLessons"
                     value="yes"
                     checked={takenLessons === "yes"}
@@ -364,6 +365,7 @@ const Register = () => {
                   <Form.Check
                     type="radio"
                     label="No"
+                    id="takenLessonsNo"
                     name="takenLessons"
                     value="no"
                     checked={takenLessons === "no"}

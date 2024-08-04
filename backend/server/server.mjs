@@ -16,31 +16,23 @@ import studentRouter from "../routes/api/students.mjs";
 import verifyJWT from "../middleware/verifyJWT.mjs";
 
 dotenv.config();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 const app = express();
 
 dbConn();
 
-const corsOrigin =
-  process.env.NODE_ENV === "production"
-    ? process.env.PROD_URL
-    : process.env.DEV_URL;
-
-app.use(
-  cors({
-    origin: [corsOrigin],
-    credentials: true,
-  })
-);
-
 app.use((req, res, next) => {
   console.log("Request received:", req.method, req.url);
   const host = req.headers.host;
-  const subdomain = host.split(".")[0]; // Extract the subdomain
-  req.subdomain = subdomain;
+  if (host) {
+    const subdomain = host.split(".")[0]; // Extract the subdomain
+    req.subdomain = subdomain;
+  } else {
+    req.subdomain = null; // Handle the case where host is undefined
+  }
   next();
 });
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(credentials);

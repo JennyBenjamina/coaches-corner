@@ -114,6 +114,7 @@ const getStudent = async (req, res) => {
         .status(204)
         .json({ message: `No student matches ID ${req.params.id}.` });
     }
+
     res.json(student);
   } catch (err) {
     return res.status(400).json({ message: "Invalid student ID format." });

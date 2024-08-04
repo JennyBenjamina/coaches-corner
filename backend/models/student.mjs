@@ -14,6 +14,7 @@ const studentSchema = new mongoose.Schema({
   refreshToken: String,
   startDate: {
     type: Date,
+    // default: () => new Date().toISOString().split("T")[0],
     default: Date.now,
   },
   handicap: {
@@ -44,6 +45,10 @@ const studentSchema = new mongoose.Schema({
     },
     Editor: Number,
     Admin: Number,
+  },
+  profileImage: {
+    type: String,
+    default: "https://via.placeholder.com/100",
   },
 });
 

@@ -13,13 +13,15 @@ const StudentRegistrationForm = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    startDate: "",
+    // startDate: new Date().toISOString().split("T")[0],
+    startDate: new Date(),
     handicap: 0,
     email: "",
     yearsPlayed: 0,
     homeCourse: "",
     takenLessons: false,
     whatToImprove: "",
+    image: "",
   });
 
   useEffect(() => {
@@ -27,6 +29,7 @@ const StudentRegistrationForm = () => {
     axiosPrivate
       .get(`/students/${auth.id}`)
       .then((response) => {
+        response.data.startDate = response.data.startDate.split("T")[0];
         setFormData(response.data);
         console.log("formData", formData);
       })
@@ -49,6 +52,7 @@ const StudentRegistrationForm = () => {
     console.log(formData);
   };
 
+  // this needs to change to when the user hits the SAVE button
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -132,12 +136,13 @@ const StudentRegistrationForm = () => {
                 onChange={handleChange}
               />
             </Form.Group> */}
-            <Form.Group controlId="formTakenLessons">
+            <Form.Group>
               <Form.Label>Have you taken lessons?</Form.Label>
               <Form.Check
                 type="radio"
                 label="Yes"
                 name="takenLessons"
+                id="takenLessonsYes"
                 value="yes"
                 checked={formData.takenLessons === "yes"}
                 onChange={handleChange}
@@ -146,6 +151,7 @@ const StudentRegistrationForm = () => {
                 type="radio"
                 label="No"
                 name="takenLessons"
+                id="takenLessonsNo"
                 value="no"
                 checked={formData.takenLessons === "no"}
                 onChange={handleChange}
@@ -164,7 +170,7 @@ const StudentRegistrationForm = () => {
             </Form.Group>
           </Col>
           <Col md={6}>
-            <Form.Group controlId="formImage">
+            <Form.Group>
               <Form.Label>Profile Image</Form.Label>
               <div>
                 {image ? (
