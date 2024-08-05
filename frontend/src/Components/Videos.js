@@ -61,6 +61,7 @@ const Videos = () => {
                 preload="auto"
                 width="640"
                 height="360"
+                style={{ width: "100%" }}
               />
             </li>
           ))}

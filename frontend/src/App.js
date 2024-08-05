@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import SignIn from "./Pages/SignIn";
-import Layout from "./Components/Layout";
 import Missing from "./Pages/Missing";
 import Unauthorized from "./Components/Unauthorized";
 import Dashboard from "./Pages/Dashboard";
@@ -21,32 +20,30 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* PUblic routes */}
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/register" element={<Register />} />
-          <Route element={<PersistLogin />}>
-            <Route
-              element={
-                <RequireAuth
-                  allowedRoles={[
-                    ROLES_LIST.User,
-                    ROLES_LIST.Admin,
-                    ROLES_LIST.Editor,
-                  ]}
-                />
-              }
-            >
-              {/* Private Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/settings" element={<Settings />} />
-            </Route>
+        {/* PUblic routes */}
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<PersistLogin />}>
+          <Route
+            element={
+              <RequireAuth
+                allowedRoles={[
+                  ROLES_LIST.User,
+                  ROLES_LIST.Admin,
+                  ROLES_LIST.Editor,
+                ]}
+              />
+            }
+          >
+            {/* Private Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
-          {/* Catch all */}
         </Route>
+        {/* Catch all */}
         <Route path="*" element={<Missing />} />
       </Routes>
     </>

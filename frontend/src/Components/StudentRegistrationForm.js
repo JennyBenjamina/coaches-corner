@@ -71,6 +71,67 @@ const StudentRegistrationForm = () => {
     <Container>
       <Form onSubmit={handleSubmit}>
         <Row>
+          <Col md={{ span: 6, order: "last" }}>
+            <Form.Group className="profileImg">
+              <Form.Label>Profile Image</Form.Label>
+              <div>
+                {image ? (
+                  <img
+                    src={image}
+                    alt="Profile"
+                    onClick={() =>
+                      document.getElementById("imageUpload").click()
+                    }
+                    style={{
+                      cursor: "pointer",
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : (
+                  <Button
+                    onClick={() =>
+                      document.getElementById("imageUpload").click()
+                    }
+                  >
+                    Upload Image
+                  </Button>
+                )}
+                <Form.Control
+                  type="file"
+                  id="imageUpload"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
+              </div>
+            </Form.Group>
+
+            <Form.Group controlId="formUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                className="form-control-custom"
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+                maxLength="20"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                className="form-control-custom"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+          </Col>
           <Col md={6}>
             <Form.Group controlId="formStartDate">
               <Form.Label>Start Date</Form.Label>
@@ -169,71 +230,17 @@ const StudentRegistrationForm = () => {
               />
             </Form.Group>
           </Col>
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>Profile Image</Form.Label>
-              <div>
-                {image ? (
-                  <img
-                    src={image}
-                    alt="Profile"
-                    onClick={() =>
-                      document.getElementById("imageUpload").click()
-                    }
-                    style={{
-                      cursor: "pointer",
-                      width: "100px",
-                      height: "100px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                ) : (
-                  <Button
-                    onClick={() =>
-                      document.getElementById("imageUpload").click()
-                    }
-                  >
-                    Upload Image
-                  </Button>
-                )}
-                <Form.Control
-                  type="file"
-                  id="imageUpload"
-                  style={{ display: "none" }}
-                  onChange={handleImageChange}
-                />
-              </div>
-            </Form.Group>
-
-            <Form.Group controlId="formUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                className="form-control-custom"
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-                maxLength="20"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                className="form-control-custom"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-          </Col>
         </Row>
-        <Button variant="custom" type="submit" className="btn-custom mt-4">
-          Save
-        </Button>
+        <div className="d-grid gap-2">
+          <Button
+            variant="custom"
+            type="submit"
+            className="btn-custom my-3"
+            size="lg"
+          >
+            Save
+          </Button>
+        </div>
       </Form>
     </Container>
   );
