@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { Card, Row, Col } from "react-bootstrap";
 
 const Videos = () => {
   const { auth } = useAuth();
@@ -9,6 +10,12 @@ const Videos = () => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [playingVideo, setPlayingVideo] = useState(null);
+
+  const handleImageClick = (index) => {
+    setPlayingVideo(index);
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -49,23 +56,37 @@ const Videos = () => {
     <article>
       <h2>Video List</h2>
       {videos?.length > 0 && videos[0] != "No files found" ? (
-        <ul>
+        <Row>
           {videos.map((video, i) => (
-            <li key={i} style={{ listStyle: "none" }}>
-              <video
-                src={`https://d14dew3747d7ve.cloudfront.net/${video}`}
-                controls
-                muted
-                autoPlay
-                loop
-                preload="auto"
-                width="640"
-                height="360"
-                style={{ width: "100%" }}
-              />
-            </li>
+            <Col md={4} key={i}>
+              <Card style={{ width: "18rem" }} className="h-100" key={i}>
+                {playingVideo === i ? (
+                  <video
+                    src={`https://d14dew3747d7ve.cloudfront.net/${video}`}
+                    controls
+                    muted
+                    autoPlay
+                    loop
+                    preload="auto"
+                    width="640"
+                    height="360"
+                    style={{ width: "100%" }}
+                  />
+                ) : (
+                  <Card.Img
+                    variant="top"
+                    src={`https://picsum.photos/200/300?random=${i}`}
+                    onClick={() => handleImageClick(i)}
+                    style={{ cursor: "pointer" }}
+                  />
+                )}
+                <Card.Body>
+                  <Card.Title>Video {i + 1}</Card.Title>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </ul>
+        </Row>
       ) : (
         <p>No videos to display</p>
       )}

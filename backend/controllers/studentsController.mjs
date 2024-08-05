@@ -72,18 +72,31 @@ const createNewStudent = async (req, res) => {
 };
 
 const updateStudent = async (req, res) => {
-  if (!req?.body?.id) {
+  console.log("req.body", req.body);
+  if (!req?.body?._id) {
     return res.status(400).json({ message: "ID parameter is required." });
   }
 
-  const student = await Student.findOne({ _id: req.body.id }).exec();
+  const student = await Student.findOne({ _id: req.body._id }).exec();
   if (!student) {
     return res
       .status(204)
-      .json({ message: `No students matches ID ${req.body.id}.` });
+      .json({ message: `No students matches ID ${req.body._id}.` });
   }
-  if (req.body?.firstname) student.firstname = req.body.firstname;
-  if (req.body?.lastname) student.lastname = req.body.lastname;
+  if (req.body?.username) student.username = req.body.username;
+  if (req.body?.password) student.password = req.body.password;
+  if (req.body?.refreshToken) student.refreshToken = req.body.refreshToken;
+  if (req.body?.startDate) student.startDate = req.body.startDate;
+  if (req.body?.handicap) student.handicap = req.body.handicap;
+  if (req.body?.email) student.email = req.body.email;
+  if (req.body?.yearsPlayed) student.yearsPlayed = req.body.yearsPlayed;
+  if (req.body?.homeCourse) student.homeCourse = req.body.homeCourse;
+  if (req.body?.takenLessons) student.takenLessons = req.body.takenLessons;
+  if (req.body?.whatToImprove) student.whatToImprove = req.body.whatToImprove;
+  if (req.body?.roles?.User) student.roles.User = req.body.roles.User;
+  if (req.body?.roles?.Editor) student.roles.Editor = req.body.roles.Editor;
+  if (req.body?.roles?.Admin) student.roles.Admin = req.body.roles.Admin;
+  if (req.body?.profileImage) student.profileImage = req.body.profileImage;
   const result = await student.save();
   res.json(result);
 };

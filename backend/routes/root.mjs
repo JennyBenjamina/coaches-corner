@@ -28,21 +28,25 @@ router.post(
   addMetadata,
   async (req, res) => {
     if (req.query.username && req.query.category) {
-      const { error, imgName } = uploadToS3({
+      const { err, key } = uploadToS3({
         file: req.file,
         userId: req.query.username,
         key: req.videoKey,
       });
+      return res.status(200).send(req.videoKey);
     } else if (req.query.imgId) {
       console.log("going through req.query.imgd", req.file);
-      const { error, imgName } = uploadToS3({
-        file: req.file,
-        userId: req.query.imgId,
-        key: req.imgKey,
-      });
+      if (req.file) {
+        const { err, key } = uploadToS3({
+          file: req.file,
+          userId: req.query.imgId,
+          key: req.imgKey,
+        });
+        return res.status(200).send(req.imgKey);
+      }
+      return res.status(200).send("No profile image uploaded.");
     }
-
-    res.send("success");
+    return res.status(500).send("An error occurred while uploading the file.");
   }
 );
 

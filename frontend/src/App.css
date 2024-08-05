@@ -313,3 +313,12 @@ footer img {
   font-weight: bold;
   margin-top: 1rem;
 }
+
+/* Cards */
+.card {
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.15);
+}

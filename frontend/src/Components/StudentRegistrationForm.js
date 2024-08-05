@@ -13,7 +13,6 @@ const StudentRegistrationForm = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    // startDate: new Date().toISOString().split("T")[0],
     startDate: new Date(),
     handicap: 0,
     email: "",
@@ -21,7 +20,7 @@ const StudentRegistrationForm = () => {
     homeCourse: "",
     takenLessons: false,
     whatToImprove: "",
-    image: "",
+    profileImage: "",
   });
 
   useEffect(() => {
@@ -31,7 +30,12 @@ const StudentRegistrationForm = () => {
       .then((response) => {
         response.data.startDate = response.data.startDate.split("T")[0];
         setFormData(response.data);
-        console.log("formData", formData);
+        if (formData.profileImage !== "https://via.placeholder.com/100") {
+          setImage(
+            "https://d14dew3747d7ve.cloudfront.net/" +
+              response.data.profileImage
+          );
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -46,24 +50,71 @@ const StudentRegistrationForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+
+    // Ensure the event target is a file input and has files
+    const file = document.getElementById("imageUpload").files[0];
+    console.log(file);
+    const data = new FormData();
+    data.append("file", file);
+    console.log("from student regist", data.get("file"));
+    try {
+      const fileResponse = await axiosInstance.post(
+        `/api/addfile?imgId=${auth.id}`,
+        data
+      );
+      console.log("fillle repsonse", fileResponse.data);
+
+      // Assuming the response contains the URL of the uploaded profile image
+      const profileImageUrl = fileResponse.data;
+
+      // Update formData with the new profileImage URL
+      const updatedFormData = {
+        ...formData,
+        profileImage: profileImageUrl,
+      };
+
+      const updateResponse = await axiosPrivate.put(
+        `/students/${auth.id}`,
+        updatedFormData
+      );
+      console.log(updateResponse);
+    } catch (err) {
+      console.error(err);
+    }
+    // axiosInstance
+    //   .post(`/api/addfile?imgId=${auth.id}`, data)
+    //   .then((response) => {
+    //     console.log(response);
+
+    //     return axiosPrivate
+    //       .put(`/students/${auth.id}`, formData)
+    //       .then((response) => {
+    //         console.log(response);
+    //       })
+    //       .catch((err) => {
+    //         console.error(err);
+    //       });
+    //   });
+
+    // axiosPrivate
+    //   .put(`/students/${auth.id}`, formData)
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
   };
 
   // this needs to change to when the user hits the SAVE button
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+
+    console.log(file);
     if (file) {
-      const data = new FormData();
-      data.append("file", file);
       setImage(URL.createObjectURL(file));
-      axiosInstance
-        .post(`/api/addfile?imgId=${auth.id}`, data)
-        .then((response) => {
-          console.log(response);
-        });
     }
   };
 

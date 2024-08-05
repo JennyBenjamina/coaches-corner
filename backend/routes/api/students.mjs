@@ -20,9 +20,12 @@ router
   .route("/")
   .get(getAllStudents)
   .post(createNewStudent)
-  .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), updateStudent)
+  .put(
+    verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor, ROLES_LIST.User),
+    updateStudent
+  )
   .delete(verifyRoles(ROLES_LIST.Admin), deleteStudent);
 
-router.route("/:id").get(getStudent);
+router.route("/:id").get(getStudent).put(updateStudent);
 
 export default router;
